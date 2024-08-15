@@ -1,4 +1,9 @@
+let optionCount = 0;
+const MAX_OPTIONS = 3;
+
 export function render(container) {
+    optionCount = 0;
+
     container.innerHTML = `
         <h2>Flooring Calculator</h2>
         <div class="input-group">
@@ -38,9 +43,15 @@ function clearInputs() {
 function clearResult() {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = '';
+    optionCount = 0;
 }
 
 export function calculate() {
+    if (optionCount >= MAX_OPTIONS) {
+        alert(`Maximum of ${MAX_OPTIONS} options reached. Please clear to start over.`);
+        return;
+    }
+
     const totalSqFeet = parseFloat(document.getElementById('totalSqFeet').value) || 0;
     const sqFeetPerBox = parseFloat(document.getElementById('sqFeetPerBox').value) || 0;
     const costPerBox = parseFloat(document.getElementById('costPerBox').value) || 0;
@@ -49,14 +60,28 @@ export function calculate() {
     const totalBoxes = Math.ceil(totalSqFeet / sqFeetPerBox) + extraBoxes;
     const totalCost = totalBoxes * costPerBox;
 
-    const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = `
+    optionCount++;
+
+    let newResult = `
+        <h3>Option ${optionCount}:</h3>
         <p>Total Boxes Needed: <span class="emphasis">${totalBoxes}</span></p>
         <p>Total Cost: <span class="emphasis">$${totalCost.toFixed(2)}</span></p>
     `;
 
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = newResult + resultDiv.innerHTML;
+
+    if (optionCount === 1) {
+        addClearButton();
+    }
+
+    clearInputs();
+}
+
+function addClearButton() {
+    const resultDiv = document.getElementById('result');
     const clearButton = document.createElement('button');
-    clearButton.textContent = 'Clear';
+    clearButton.textContent = 'Clear All';
     clearButton.classList.add('clear-button');
     clearButton.addEventListener('click', () => {
         clearResult();

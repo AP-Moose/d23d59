@@ -20,7 +20,7 @@ export function render(container) {
             <label for="rings">Number of rings:</label>
             <input type="number" id="rings" placeholder="Number of Rings" aria-label="Number of Rings">
         </div>
-        <div id="rollWidthGroup" class="input-group">
+        <div id="rollWidthGroup" class="input-group" style="display:none;">
             <label>Roll Width:</label>
             <div class="roll-width-buttons">
                 <button class="roll-width-button" data-width="0.0872">6'</button>

@@ -1,7 +1,9 @@
 let optionCount = 0;
-const MAX_OPTIONS = 3; // Cap at 3 options, can be adjusted
+const MAX_OPTIONS = 3;
 
 export function render(container) {
+    optionCount = 0;
+
     container.innerHTML = `
         <h2>Carpet Calculator</h2>
         <p id="selectedType" class="selected-type">Selected: 12' Wide</p>
@@ -64,6 +66,11 @@ function clearResult() {
 }
 
 export function calculate() {
+    if (optionCount >= MAX_OPTIONS) {
+        alert(`Maximum of ${MAX_OPTIONS} options reached. Please clear to start over.`);
+        return;
+    }
+
     const feet = parseFloat(document.getElementById('feet').value) || 0;
     const inches = parseFloat(document.getElementById('inches').value) || 0;
     const cost = parseFloat(document.getElementById('cost').value) || 0;
@@ -75,10 +82,6 @@ export function calculate() {
     const totalCost = isRunner ? totalFeet * cost : squareYards * cost;
 
     optionCount++;
-    if (optionCount > MAX_OPTIONS) {
-        alert(`Maximum of ${MAX_OPTIONS} options reached. Please clear to start over.`);
-        return;
-    }
 
     let newResult = `
         <h3>Option ${optionCount}:</h3>
@@ -91,13 +94,20 @@ export function calculate() {
     resultDiv.innerHTML = newResult + resultDiv.innerHTML;
 
     if (optionCount === 1) {
-        const clearButton = document.createElement('button');
-        clearButton.textContent = 'Clear All';
-        clearButton.classList.add('clear-button');
-        clearButton.addEventListener('click', () => {
-            clearResult();
-            clearInputs();
-        });
-        resultDiv.appendChild(clearButton);
+        addClearButton();
     }
+
+    clearInputs();
+}
+
+function addClearButton() {
+    const resultDiv = document.getElementById('result');
+    const clearButton = document.createElement('button');
+    clearButton.textContent = 'Clear All';
+    clearButton.classList.add('clear-button');
+    clearButton.addEventListener('click', () => {
+        clearResult();
+        clearInputs();
+    });
+    resultDiv.appendChild(clearButton);
 }
