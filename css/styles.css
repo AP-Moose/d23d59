@@ -1,0 +1,163 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fa6304;
+    color: white;
+    font-size: 14px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+}
+
+.nav-button:hover, .nav-button.active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+main {
+    padding: 0.5rem;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.calculator {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+}
+
+.input-group label {
+    flex: 0 0 20%;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    margin: 0 0.25rem;
+}
+
+.input-group span {
+    flex: 0 0 auto;
+    margin: 0 0.25rem;
+}
+
+.toggle-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.toggle-buttons {
+    display: flex;
+}
+
+.toggle-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 0.25rem;
+}
+
+.toggle-button:last-child {
+    margin-right: 0;
+}
+
+.toggle-button.active {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+#calculate {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #e85d04;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#calculate:hover {
+    background-color: #d04e04;
+}
+
+.result {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.result p {
+    margin: 0.5rem 0;
+}
+
+.result .emphasis {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.clear-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-decoration: underline;
+}
+
+.selected-type {
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 400px) {
+    body {
+        font-size: 16px;
+    }
+
+    .nav-button {
+        font-size: 1rem;
+    }
+}
