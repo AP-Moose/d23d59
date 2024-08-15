@@ -2,128 +2,136 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #fa6304;
-    color: white;
-    font-size: 14px;
+    background-color: #f4f4f4;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
 }
 
 nav {
     display: flex;
     justify-content: space-around;
     padding: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #fa6304;
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .nav-button {
     background-color: transparent;
     border: none;
     color: white;
-    padding: 0.5rem;
+    padding: 0.75rem 1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 0.9rem;
+    transition: background-color 0.3s, transform 0.1s;
+    font-size: 1rem;
+    border-radius: 4px;
 }
 
-.nav-button:hover, .nav-button.active {
+.nav-button:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-main {
-    padding: 0.5rem;
-    max-width: 100%;
-    margin: 0 auto;
+.nav-button.active {
+    background-color: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    transform: translateY(2px);
 }
 
 .calculator {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 1rem;
-    border-radius: 5px;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
     max-width: 400px;
-    margin: 0 auto;
+    margin: 2rem auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .input-group {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    margin-bottom: 1rem;
-    justify-content: space-between;
+    margin-bottom: 1.5rem;
 }
 
 .input-group label {
-    flex: 0 0 20%;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
 }
 
-.input-group input {
-    flex: 1;
-    padding: 0.5rem;
-    border: none;
-    border-radius: 3px;
-    font-size: 0.9rem;
-    margin: 0 0.25rem;
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
 }
 
-.input-group span {
-    flex: 0 0 auto;
-    margin: 0 0.25rem;
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #fa6304;
+    outline: none;
 }
 
 .toggle-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .toggle-buttons {
     display: flex;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .toggle-button {
-    background-color: rgba(255, 255, 255, 0.2);
+    flex: 1;
+    background-color: #f0f0f0;
     border: none;
-    color: white;
-    padding: 0.5rem 1rem;
+    color: #333;
+    padding: 0.75rem 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-right: 0.25rem;
-}
-
-.toggle-button:last-child {
-    margin-right: 0;
+    font-size: 1rem;
 }
 
 .toggle-button.active {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: #fa6304;
+    color: white;
 }
 
 #calculate {
     width: 100%;
-    padding: 0.75rem;
-    background-color: #e85d04;
+    padding: 1rem;
+    background-color: #fa6304;
     border: none;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.1s;
+    font-size: 1.1rem;
+    border-radius: 4px;
     margin-top: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 #calculate:hover {
-    background-color: #d04e04;
+    background-color: #e85d04;
+}
+
+#calculate:active {
+    transform: translateY(2px);
 }
 
 .result {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #f9f9f9;
     padding: 1rem;
-    margin-top: 1rem;
-    border-radius: 3px;
-    font-size: 0.9rem;
-    position: relative;
+    margin-top: 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    border-left: 4px solid #fa6304;
 }
 
 .result p {
@@ -132,32 +140,52 @@ main {
 
 .result .emphasis {
     font-weight: bold;
-    font-size: 1.1em;
+    color: #fa6304;
 }
 
 .clear-button {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
     background: none;
     border: none;
-    color: white;
+    color: #fa6304;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     text-decoration: underline;
+    margin-top: 1rem;
+    transition: color 0.3s;
+}
+
+.clear-button:hover {
+    color: #e85d04;
 }
 
 .selected-type {
     font-style: italic;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    color: #666;
 }
 
-@media (min-width: 400px) {
-    body {
-        font-size: 16px;
+@media (max-width: 480px) {
+    .calculator {
+        padding: 1rem;
+        margin: 1rem;
     }
 
     .nav-button {
-        font-size: 1rem;
+        padding: 0.5rem;
+        font-size: 0.9rem;
     }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.calculator {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.result {
+    animation: fadeIn 0.3s ease-out;
 }

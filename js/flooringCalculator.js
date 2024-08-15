@@ -2,39 +2,26 @@ export function render(container) {
     container.innerHTML = `
         <h2>Flooring Calculator</h2>
         <div class="input-group">
-            <div class="label-wrapper">
-                <label for="totalSqFeet">Total Square Feet:</label>
-            </div>
+            <label for="totalSqFeet">Total Square Feet:</label>
+            <input type="number" id="totalSqFeet" placeholder="Total Sq. Feet" aria-label="Total Square Feet">
+        </div>
+        <div class="input-group">
+            <label for="sqFeetPerBox">Square Feet per Box:</label>
+            <input type="number" id="sqFeetPerBox" placeholder="Sq. Feet per Box" aria-label="Square Feet per Box">
+        </div>
+        <div class="input-group">
+            <label for="costPerBox">Cost per Box:</label>
             <div class="input-wrapper">
-                <input type="number" id="totalSqFeet" placeholder="Total Sq. Feet">
+                <span>$</span>
+                <input type="number" id="costPerBox" placeholder="Cost per Box" aria-label="Cost per Box">
             </div>
         </div>
         <div class="input-group">
-            <div class="label-wrapper">
-                <label for="sqFeetPerBox">Square Feet per Box:</label>
-            </div>
-            <div class="input-wrapper">
-                <input type="number" id="sqFeetPerBox" placeholder="Sq. Feet per Box">
-            </div>
-        </div>
-        <div class="input-group">
-            <div class="label-wrapper">
-                <label for="costPerBox">Cost per Box:</label>
-            </div>
-            <div class="input-wrapper">
-                <input type="number" id="costPerBox" placeholder="Cost per Box">
-            </div>
-        </div>
-        <div class="input-group">
-            <div class="label-wrapper">
-                <label for="extraBoxes">Extra Boxes:</label>
-            </div>
-            <div class="input-wrapper">
-                <input type="number" id="extraBoxes" placeholder="Extra Boxes">
-            </div>
+            <label for="extraBoxes">Extra Boxes:</label>
+            <input type="number" id="extraBoxes" placeholder="Extra Boxes" aria-label="Extra Boxes">
         </div>
         <button id="calculate">Calculate</button>
-        <div id="result" class="result"></div>
+        <div id="result" class="result" aria-live="polite"></div>
     `;
 
     const calculateButton = container.querySelector('#calculate');
@@ -64,13 +51,16 @@ export function calculate() {
 
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = `
-        <p>Total Boxes Needed: ${totalBoxes}</p>
-        <p>Total Cost: $${totalCost.toFixed(2)}</p>
-        <button class="clear-button">Clear</button>
+        <p>Total Boxes Needed: <span class="emphasis">${totalBoxes}</span></p>
+        <p>Total Cost: <span class="emphasis">$${totalCost.toFixed(2)}</span></p>
     `;
 
-    document.querySelector('.clear-button').addEventListener('click', () => {
+    const clearButton = document.createElement('button');
+    clearButton.textContent = 'Clear';
+    clearButton.classList.add('clear-button');
+    clearButton.addEventListener('click', () => {
         clearResult();
         clearInputs();
     });
+    resultDiv.appendChild(clearButton);
 }

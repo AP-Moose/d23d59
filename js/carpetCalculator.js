@@ -6,7 +6,7 @@ export function render(container) {
         <h2>Carpet Calculator</h2>
         <p id="selectedType" class="selected-type">Selected: 12' Wide</p>
         <div class="toggle-group">
-            <span>Choose type:</span>
+            <label>Choose type:</label>
             <div class="toggle-buttons">
                 <button class="toggle-button active" data-type="fullCarpet">12' Wide</button>
                 <button class="toggle-button" data-type="runner">Runner</button>
@@ -14,27 +14,28 @@ export function render(container) {
         </div>
         <div class="input-group">
             <label for="feet">Length:</label>
-            <input type="number" id="feet" placeholder="feet..." style="width: 30%;">
-            <span>feet</span>
-            <input type="number" id="inches" placeholder="inches..." style="width: 30%;">
-            <span>inches</span>
+            <div class="input-wrapper">
+                <input type="number" id="feet" placeholder="Feet" aria-label="Feet">
+                <span>feet</span>
+                <input type="number" id="inches" placeholder="Inches" aria-label="Inches">
+                <span>inches</span>
+            </div>
         </div>
         <div class="input-group">
             <label for="cost">Cost:</label>
-            <span>$</span>
-            <input type="number" id="cost" placeholder="Cost" style="width: 50%;">
-            <span id="costUnit">per sq. yd.</span>
+            <div class="input-wrapper">
+                <span>$</span>
+                <input type="number" id="cost" placeholder="Cost" aria-label="Cost">
+                <span id="costUnit">per sq. yd.</span>
+            </div>
         </div>
         <button id="calculate">Calculate</button>
-        <div id="result" class="result">
-            <button class="clear-button">Clear All</button>
-        </div>
+        <div id="result" class="result" aria-live="polite"></div>
     `;
 
     const toggleButtons = container.querySelectorAll('.toggle-button');
     const selectedType = container.querySelector('#selectedType');
     const costUnit = container.querySelector('#costUnit');
-    const clearButton = container.querySelector('.clear-button');
     const calculateButton = container.querySelector('#calculate');
 
     toggleButtons.forEach(button => {
@@ -47,15 +48,7 @@ export function render(container) {
         });
     });
 
-    clearButton.addEventListener('click', () => {
-        clearResult();
-        clearInputs();
-    });
-
-    calculateButton.addEventListener('click', () => {
-        calculate();
-        clearInputs();
-    });
+    calculateButton.addEventListener('click', calculate);
 }
 
 function clearInputs() {
@@ -66,7 +59,7 @@ function clearInputs() {
 
 function clearResult() {
     const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = '<button class="clear-button">Clear All</button>';
+    resultDiv.innerHTML = '';
     optionCount = 0;
 }
 
@@ -97,8 +90,14 @@ export function calculate() {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = newResult + resultDiv.innerHTML;
 
-    document.querySelector('.clear-button').addEventListener('click', () => {
-        clearResult();
-        clearInputs();
-    });
+    if (optionCount === 1) {
+        const clearButton = document.createElement('button');
+        clearButton.textContent = 'Clear All';
+        clearButton.classList.add('clear-button');
+        clearButton.addEventListener('click', () => {
+            clearResult();
+            clearInputs();
+        });
+        resultDiv.appendChild(clearButton);
+    }
 }
