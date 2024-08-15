@@ -33,6 +33,7 @@ export function render(container) {
         </div>
         <button id="calculate">Calculate</button>
         <div id="result" class="result" aria-live="polite"></div>
+        <div id="clearButtonContainer"></div> <!-- Container for Clear button -->
     `;
 
     const toggleButtons = container.querySelectorAll('.toggle-button');
@@ -61,8 +62,8 @@ function clearInputs() {
 
 function clearResult() {
     const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = '';
-    optionCount = 0;
+    resultDiv.innerHTML = ''; // Clears all result content
+    optionCount = 0; // Reset optionCount when clearing results
 }
 
 export function calculate() {
@@ -93,6 +94,7 @@ export function calculate() {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = newResult + resultDiv.innerHTML;
 
+    // Add Clear button only after the first result is calculated
     if (optionCount === 1) {
         addClearButton();
     }
@@ -101,13 +103,15 @@ export function calculate() {
 }
 
 function addClearButton() {
-    const resultDiv = document.getElementById('result');
-    const clearButton = document.createElement('button');
-    clearButton.textContent = 'Clear All';
-    clearButton.classList.add('clear-button');
-    clearButton.addEventListener('click', () => {
-        clearResult();
-        clearInputs();
-    });
-    resultDiv.appendChild(clearButton);
+    const clearButtonContainer = document.getElementById('clearButtonContainer');
+    if (clearButtonContainer && !clearButtonContainer.querySelector('.clear-button')) {
+        const clearButton = document.createElement('button');
+        clearButton.textContent = 'Clear All';
+        clearButton.classList.add('clear-button');
+        clearButton.addEventListener('click', () => {
+            clearResult();
+            clearInputs();
+        });
+        clearButtonContainer.appendChild(clearButton);
+    }
 }

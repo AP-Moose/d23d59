@@ -2,7 +2,7 @@ let optionCount = 0;
 const MAX_OPTIONS = 3;
 
 export function render(container) {
-    optionCount = 0;
+    optionCount = 0; // Reset optionCount when rendering
 
     container.innerHTML = `
         <h2>Flooring Calculator</h2>
@@ -27,6 +27,7 @@ export function render(container) {
         </div>
         <button id="calculate">Calculate</button>
         <div id="result" class="result" aria-live="polite"></div>
+        <div id="clearButtonContainer"></div> <!-- Container for Clear button -->
     `;
 
     const calculateButton = container.querySelector('#calculate');
@@ -42,8 +43,8 @@ function clearInputs() {
 
 function clearResult() {
     const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = '';
-    optionCount = 0;
+    resultDiv.innerHTML = ''; // Clears all result content but keeps the Clear button
+    optionCount = 0; // Reset optionCount when clearing results
 }
 
 export function calculate() {
@@ -71,6 +72,7 @@ export function calculate() {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = newResult + resultDiv.innerHTML;
 
+    // Add Clear button only after the first result is calculated
     if (optionCount === 1) {
         addClearButton();
     }
@@ -79,13 +81,15 @@ export function calculate() {
 }
 
 function addClearButton() {
-    const resultDiv = document.getElementById('result');
-    const clearButton = document.createElement('button');
-    clearButton.textContent = 'Clear All';
-    clearButton.classList.add('clear-button');
-    clearButton.addEventListener('click', () => {
-        clearResult();
-        clearInputs();
-    });
-    resultDiv.appendChild(clearButton);
+    const clearButtonContainer = document.getElementById('clearButtonContainer');
+    if (clearButtonContainer && !clearButtonContainer.querySelector('.clear-button')) { // Ensure the button is added only once
+        const clearButton = document.createElement('button');
+        clearButton.textContent = 'Clear All';
+        clearButton.classList.add('clear-button');
+        clearButton.addEventListener('click', () => {
+            clearResult();
+            clearInputs();
+        });
+        clearButtonContainer.appendChild(clearButton);
+    }
 }
