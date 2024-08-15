@@ -7,7 +7,7 @@ const calculators = {
     carpet: {
         name: "Carpet",
         module: carpetCalculator,
-        icon: 'fas fa-rug'
+        icon: 'fas fa-square'
     },
     rolledGoods: {
         name: "Rolled Goods",
@@ -17,12 +17,12 @@ const calculators = {
     flooring: {
         name: "Flooring",
         module: flooringCalculator,
-        icon: 'fas fa-th'
+        icon: 'fas fa-th-large'
     },
     blinds: {
         name: "Blinds",
         module: blindsCalculator,
-        icon: 'fas fa-blinds'
+        icon: 'fas fa-sliders-h'
     }
 };
 

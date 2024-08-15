@@ -8,14 +8,17 @@ body {
     line-height: 1.5;
 }
 
+.sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
 nav {
     display: flex;
     justify-content: space-around;
     padding: 0.5rem;
     background-color: #fa6304;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -28,6 +31,12 @@ nav {
     transition: background-color 0.3s, transform 0.1s;
     font-size: 1rem;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-button i {
+    margin-right: 0.5rem;
 }
 
 .nav-button:hover {
@@ -68,12 +77,26 @@ nav {
     border-radius: 4px;
     font-size: 1rem;
     transition: border-color 0.3s;
+    background-color: #fff;
 }
 
 .input-group input:focus,
 .input-group select:focus {
     border-color: #fa6304;
     outline: none;
+}
+
+.input-group .input-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.input-group .input-wrapper span {
+    margin: 0 0.5rem;
+}
+
+.input-group .input-wrapper input {
+    flex: 1;
 }
 
 .toggle-group {
@@ -162,6 +185,28 @@ nav {
     font-style: italic;
     margin-bottom: 1rem;
     color: #666;
+}
+
+.roll-width-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.roll-width-button {
+    flex: 1;
+    margin: 0 0.25rem;
+    padding: 0.5rem;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.roll-width-button.active {
+    background-color: #fa6304;
+    color: white;
 }
 
 @media (max-width: 480px) {

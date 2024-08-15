@@ -20,14 +20,14 @@ export function render(container) {
             <label for="rings">Number of rings:</label>
             <input type="number" id="rings" placeholder="Number of Rings" aria-label="Number of Rings">
         </div>
-        <div id="rollWidthGroup" class="input-group" style="display:none;">
-            <label for="rollWidth">Roll Width:</label>
-            <select id="rollWidth" aria-label="Roll Width">
-                <option value="0.0872">6'</option>
-                <option value="0.1454">10'</option>
-                <option value="0.1744">12'</option>
-                <option value="0.2182">15'</option>
-            </select>
+        <div id="rollWidthGroup" class="input-group">
+            <label>Roll Width:</label>
+            <div class="roll-width-buttons">
+                <button class="roll-width-button" data-width="0.0872">6'</button>
+                <button class="roll-width-button" data-width="0.1454">10'</button>
+                <button class="roll-width-button" data-width="0.1744">12'</button>
+                <button class="roll-width-button" data-width="0.2182">15'</button>
+            </div>
         </div>
         <button id="calculate">Calculate</button>
         <div id="result" class="result" aria-live="polite"></div>
@@ -35,6 +35,7 @@ export function render(container) {
 
     const toggleButtons = container.querySelectorAll('.toggle-button');
     const rollWidthGroup = container.querySelector('#rollWidthGroup');
+    const rollWidthButtons = container.querySelectorAll('.roll-width-button');
     const calculateButton = container.querySelector('#calculate');
 
     toggleButtons.forEach(button => {
@@ -45,6 +46,13 @@ export function render(container) {
         });
     });
 
+    rollWidthButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            rollWidthButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+
     calculateButton.addEventListener('click', calculate);
 }
 
@@ -52,9 +60,7 @@ function clearInputs() {
     document.getElementById('entireRoll').value = '';
     document.getElementById('tube').value = '';
     document.getElementById('rings').value = '';
-    if (document.getElementById('rollWidth')) {
-        document.getElementById('rollWidth').selectedIndex = 0;
-    }
+    document.querySelectorAll('.roll-width-button').forEach(btn => btn.classList.remove('active'));
 }
 
 function clearResult() {
@@ -76,7 +82,8 @@ export function calculate() {
     if (isLNFT) {
         result = `<p>Linear Feet: <span class="emphasis">${linearFeet}</span></p>`;
     } else {
-        const rollWidth = parseFloat(document.getElementById('rollWidth').value) || 0.0872;
+        const activeRollWidthButton = document.querySelector('.roll-width-button.active');
+        const rollWidth = activeRollWidthButton ? parseFloat(activeRollWidthButton.dataset.width) : 0.0872;
         const sqYards = (multiplied * rollWidth).toFixed(2);
         result = `<p>Square Yards: <span class="emphasis">${sqYards}</span></p>`;
     }

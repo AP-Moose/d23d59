@@ -4,14 +4,8 @@ export function render(container) {
         <div class="input-group">
             <label>Mode:</label>
             <div class="toggle-buttons">
-                <label>
-                    <input type="radio" name="blindMode" value="outside" checked>
-                    <span>Outside (Exact)</span>
-                </label>
-                <label>
-                    <input type="radio" name="blindMode" value="inside">
-                    <span>Inside</span>
-                </label>
+                <button class="toggle-button active" data-mode="outside">Outside (Exact)</button>
+                <button class="toggle-button" data-mode="inside">Inside</button>
             </div>
         </div>
         <div class="input-group">
@@ -26,14 +20,24 @@ export function render(container) {
         <div id="result" class="result" aria-live="polite"></div>
     `;
 
+    const toggleButtons = container.querySelectorAll('.toggle-button');
     const calculateButton = container.querySelector('#calculate');
+
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            toggleButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+
     calculateButton.addEventListener('click', calculate);
 }
 
 function clearInputs() {
     document.getElementById('windowWidth').value = '';
     document.getElementById('startingWidth').value = '';
-    document.querySelector('input[name="blindMode"][value="outside"]').checked = true;
+    document.querySelector('.toggle-button[data-mode="outside"]').classList.add('active');
+    document.querySelector('.toggle-button[data-mode="inside"]').classList.remove('active');
 }
 
 function clearResult() {
@@ -44,7 +48,7 @@ function clearResult() {
 export function calculate() {
     const windowWidth = parseFloat(document.getElementById('windowWidth').value) || 0;
     const startingWidth = parseFloat(document.getElementById('startingWidth').value) || 0;
-    const isOutside = document.querySelector('input[name="blindMode"]:checked').value === 'outside';
+    const isOutside = document.querySelector('.toggle-button.active').dataset.mode === 'outside';
 
     const trueStartingWidth = startingWidth - 0.5;
     const targetWidth = isOutside ? windowWidth : windowWidth - 0.5;
